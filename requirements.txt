@@ -1,0 +1,34 @@
+# Core libraries
+tensorflow==2.12.0
+pandas==1.5.3
+numpy==1.23.5
+scikit-learn==1.2.2
+
+# API and web framework
+flask==2.3.2
+flask-cors==3.0.10  # For handling Cross-Origin Resource Sharing (CORS)
+
+# Configuration validation
+pydantic==1.10.7
+
+# Monitoring and metrics
+prometheus-client==0.16.0
+
+# Testing and CI/CD
+pytest==7.4.0
+pytest-cov==4.1.0
+
+# Model optimization
+tensorflow-lite==2.12.0  # For TensorFlow Lite conversion
+onnx==1.14.0             # Optional: For ONNX export
+
+# Logging and debugging
+python-dotenv==1.0.0     # For managing environment variables
+loguru==0.7.0            # Enhanced logging library
+
+# Data visualization and exploration (optional)
+matplotlib==3.7.1
+seaborn==0.12.2
+
+# YAML parsing
+pyyaml==6.0.1
