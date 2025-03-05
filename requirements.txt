@@ -19,7 +19,6 @@ pytest==7.4.0
 pytest-cov==4.1.0
 
 # Model optimization
-tensorflow-lite==2.12.0  # For TensorFlow Lite conversion
 onnx==1.14.0             # Optional: For ONNX export
 
 # Logging and debugging
