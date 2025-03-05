@@ -1,0 +1,15 @@
+data:
+  path: "data/ratings.csv"
+  test_size: 0.2
+  random_state: 42
+
+model:
+  embedding_dim: 16
+  dense_units: [64, 32]
+  dropout_rate: 0.2
+  learning_rate: 0.001
+
+training:
+  batch_size: 64
+  epochs: 50
+  early_stopping_patience: 5
