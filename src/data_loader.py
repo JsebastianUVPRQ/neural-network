@@ -1,6 +1,6 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+# from sklearn.model_selection import train_test_split
+# from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
 def add_metadata(df, movies_metadata):
