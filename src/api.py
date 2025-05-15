@@ -35,6 +35,9 @@ def predict():
             if not data or 'user_id' not in data or 'movie_title' not in data:
                 ERROR_COUNT.labels(error_type='invalid_input').inc()
                 return jsonify({"error": "Datos incompletos"}), 400
+        except Exception as e:
+            ERROR_COUNT.labels(error_type='json_parsing_error').inc()
+            return jsonify({"error": f"Error al procesar JSON: {str(e)}"}), 400
                 
             user_id = data['user_id']
             movie_title = data['movie_title']
@@ -56,9 +59,9 @@ def predict():
                 "predicted_rating": float(prediction[0][0])
             })
             
-        except Exception as e:
-            ERROR_COUNT.labels(error_type='server_error').inc()
-            return jsonify({"error": f"Error interno: {str(e)}"}), 500
+            except Exception as e:
+                ERROR_COUNT.labels(error_type='server_error').inc()
+                return jsonify({"error": f"Error interno: {str(e)}"}), 500
 
 @app.route("/metrics")
 def metrics():
