@@ -23,19 +23,19 @@ This project contains three interactive quizzes on classical mechanics topics, c
 
 ## Running the Quizzes
 
-To run an interactive quiz, use the following command:
+To run an interactive quiz, first convert it to HTML for web-based interaction:
 
 ```
-manim-slides present <filename>.py <ClassName>
+manim-slides convert <filename>.py <ClassName> --to html
 ```
 
 For example:
 
-- Kinematics: `manim-slides present kinematics_quiz.py KinematicsQuiz`
-- Newton's Laws: `manim-slides present newtons_laws_quiz.py NewtonsLawsQuiz`
-- Energy: `manim-slides present energy_conservation_quiz.py EnergyConservationQuiz`
+- Kinematics: `manim-slides convert kinematics_quiz.py KinematicsQuiz --to html`
+- Newton's Laws: `manim-slides convert newtons_laws_quiz.py NewtonsLawsQuiz --to html`
+- Energy: `manim-slides convert energy_conservation_quiz.py EnergyConservationQuiz --to html`
 
-Use arrow keys or space to navigate through the slides. Each quiz consists of animated explanations followed by multiple-choice questions with revealed answers.
+This creates a `slides` directory with HTML files. Open `slides/index.html` in your web browser to interact with the quiz using keyboard navigation or on-screen controls. Each quiz features animated explanations followed by multiple-choice questions with revealed answers.
 
 ## Features
 
