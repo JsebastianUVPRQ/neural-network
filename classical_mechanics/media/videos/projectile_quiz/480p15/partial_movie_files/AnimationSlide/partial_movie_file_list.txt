@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/Sebastian/Documents/GitHub/neural-network/classical_mechanics/media/videos/projectile_quiz/480p15/partial_movie_files/AnimationSlide/1185818338_649987274_223132457.mp4'
-file 'file:C:/Users/Sebastian/Documents/GitHub/neural-network/classical_mechanics/media/videos/projectile_quiz/480p15/partial_movie_files/AnimationSlide/624642324_235935782_3524999052.mp4'
-file 'file:C:/Users/Sebastian/Documents/GitHub/neural-network/classical_mechanics/media/videos/projectile_quiz/480p15/partial_movie_files/AnimationSlide/624642324_4035872471_298406513.mp4'
