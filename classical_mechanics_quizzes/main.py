@@ -1,3 +1,4 @@
+#---------------------------------------------------------
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
@@ -54,19 +55,43 @@ st.markdown("""
         border-bottom: 2px solid #E5E7EB;
         padding-bottom: 0.5rem;
     }
+    /* Mejora para contenedores de gráficas */
+    .plot-container {
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # --- Funciones de Física ---
 def get_veff(r, L, m, alpha):
-    r = np.maximum(r, 0.01) 
+    """Calcula el potencial efectivo evitando división por cero"""
+    r = np.maximum(r, 1e-10)  # Mejor protección contra división por cero
     return (L**2) / (2 * m * r**2) - (alpha / r)
+
+def calculate_turning_points(r, veff, E):
+    """Calcula los puntos de retorno donde E = V_eff"""
+    crossings = np.where(np.diff(np.sign(E - veff)))[0]
+    turning_points = []
+    for idx in crossings:
+        if idx + 1 < len(r):
+            # Interpolación lineal para mayor precisión
+            r1, r2 = r[idx], r[idx + 1]
+            v1, v2 = veff[idx], veff[idx + 1]
+            if v1 != v2:
+                t_point = r1 + (r2 - r1) * (E - v1) / (v2 - v1)
+                turning_points.append(t_point)
+    return turning_points
 
 # --- Inicialización de Estado ---
 if 'quiz_answers' not in st.session_state:
     st.session_state.quiz_answers = {}
 if 'show_results' not in st.session_state:
     st.session_state.show_results = False
+if 'animation_running' not in st.session_state:
+    st.session_state.animation_running = False
 
 # --- Encabezado ---
 st.markdown('<div class="main-header">Mecánica Clásica</div>', unsafe_allow_html=True)
@@ -96,7 +121,7 @@ with tab1:
     """)
 
     st.markdown('<div class="math-box">', unsafe_allow_html=True)
-    st.latex(r"p_r = m\dot{r}, \quad p_\theta = mr^2\dot{\theta}, \quad p_\phi = mr^2\sin^2\theta\dot{\phi}")
+    st.latex(r'''p_r = m\dot{r}, \quad p_\theta = mr^2\dot{\theta}, \quad p_\phi = mr^2\sin^2\theta\dot{\phi}''')
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("El Hamiltoniano $H = T + U$ expresado en términos de los momentos resulta en:")
@@ -130,7 +155,7 @@ with tab1:
     """)
 
     st.markdown('<div class="math-box">', unsafe_allow_html=True)
-    st.latex(r"V_{eff}(r) \equiv \frac{L^2}{2mr^2} - \frac{\alpha}{r}")
+    st.latex(r"V_{eff}(r) \equiv \frac{L^2}{2mr^2} + U(r)")
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### 4. Análisis Cualitativo de las Órbitas")
@@ -223,6 +248,9 @@ with tab2:
                 st.error(f"❌ Pregunta {i+1}: Incorrecto. {q['expl']}")
         
         st.metric("Puntuación", f"{score}/{len(questions)}")
+        
+        if score == len(questions):
+            st.balloons()
 
 # ==========================================
 # PESTAÑA 3: SIMULACIÓN
@@ -231,17 +259,25 @@ with tab3:
     with st.sidebar:
         st.header("🎛️ Controles de Laboratorio")
         st.markdown("Modifica las constantes de movimiento:")
-        E_val = st.slider("Energía Total (E)", -2.0, 2.0, -0.5, 0.1)
-        L_val = st.slider("Momento Angular (L)", 0.5, 3.0, 1.2, 0.1)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            E_val = st.slider("Energía Total (E)", -2.0, 2.0, -0.5, 0.1)
+        with col2:
+            L_val = st.slider("Momento Angular (L)", 0.5, 3.0, 1.2, 0.1)
         
         st.markdown("Parámetros del Sistema:")
-        m_val = st.slider("Masa (m)", 0.5, 2.0, 1.0, 0.1)
-        alpha_val = st.slider("Fuerza del Potencial (α)", 0.5, 3.0, 1.5, 0.1)
+        col3, col4 = st.columns(2)
+        with col3:
+            m_val = st.slider("Masa (m)", 0.5, 2.0, 1.0, 0.1)
+        with col4:
+            alpha_val = st.slider("Fuerza del Potencial (α)", 0.5, 3.0, 1.5, 0.1)
         
         st.info("""
         **Interpretación:**
         * La línea roja discontinua es tu Energía Total.
         * La partícula solo puede existir donde $E \\geq V_{eff}$ (zona verde).
+        * Los puntos negros muestran los radios de retorno.
         """)
 
     # Cálculos
@@ -257,97 +293,231 @@ with tab3:
     if len(r_valid) > 0:
         pr_pos = np.sqrt(2 * m_val * kinetic[valid_mask])
         pr_neg = -pr_pos
+        
+        # Crear ciclo cerrado para visualización
+        r_plot = np.concatenate([r_valid, r_valid[::-1]])
+        pr_plot = np.concatenate([pr_pos, pr_neg[::-1]])
     else:
-        r_valid = []
-        pr_pos = []
-        pr_neg = []
+        r_valid = np.array([])
+        pr_pos = np.array([])
+        pr_neg = np.array([])
+        r_plot = np.array([])
+        pr_plot = np.array([])
+
+    # Calcular puntos de retorno
+    turning_points = calculate_turning_points(r, veff, E_val)
 
     col_graph1, col_graph2 = st.columns(2)
 
     # Gráfica 1: V_eff
     with col_graph1:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         fig_pot = go.Figure()
-        fig_pot.add_trace(go.Scatter(x=r, y=veff, name='V_eff(r)', line=dict(color='#2563eb', width=3)))
-        fig_pot.add_hline(y=E_val, line_dash="dash", line_color="#dc2626", annotation_text=f"E = {E_val}")
+        
+        # Potencial efectivo
+        fig_pot.add_trace(go.Scatter(
+            x=r, y=veff, 
+            name='V_eff(r)', 
+            line=dict(color='#2563eb', width=3),
+            hovertemplate="r: %{x:.2f}<br>V_eff: %{y:.2f}<extra></extra>"
+        ))
+        
+        # Línea de energía
+        fig_pot.add_hline(
+            y=E_val, 
+            line_dash="dash", 
+            line_color="#dc2626", 
+            annotation_text=f"E = {E_val:.2f}"
+        )
         
         # Sombreado zona permitida
         if len(r_valid) > 0:
-            fig_pot.add_vrect(x0=r_valid[0], x1=r_valid[-1], fillcolor="green", opacity=0.1, line_width=0)
+            fig_pot.add_vrect(
+                x0=r_valid[0], 
+                x1=r_valid[-1], 
+                fillcolor="green", 
+                opacity=0.1, 
+                line_width=0,
+                annotation_text="Zona Permitida"
+            )
+            
             # Marcar puntos de retorno
-            fig_pot.add_trace(go.Scatter(
-                x=[r_valid[0], r_valid[-1]], y=[E_val, E_val],
-                mode='markers', marker=dict(color='black', size=8), name='Puntos de Retorno'
-            ))
+            if turning_points:
+                fig_pot.add_trace(go.Scatter(
+                    x=turning_points, 
+                    y=[E_val] * len(turning_points),
+                    mode='markers', 
+                    marker=dict(color='black', size=10, symbol='diamond'),
+                    name='Puntos de Retorno',
+                    hovertemplate="Radio de retorno: %{x:.2f}<extra></extra>"
+                ))
 
         fig_pot.update_layout(
-            title="<b>Potencial Efectivo</b> <br><i>Competencia entre atracción y barrera centrífuga</i>", 
+            title="<b>Potencial Efectivo</b>", 
             xaxis_title="Distancia radial r", 
             yaxis_title="Energía",
-            yaxis_range=[-4, 4], height=400, margin=dict(l=20, r=20, t=60, b=20),
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            yaxis_range=[-4, 4], 
+            height=450, 
+            margin=dict(l=20, r=20, t=60, b=20),
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            hovermode='x unified'
         )
         st.plotly_chart(fig_pot, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # Gráfica 2: Espacio Fase
     with col_graph2:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         fig_phase = go.Figure()
         
-        if len(r_valid) > 0:
-            # Crear ciclo cerrado visualmente
-            r_plot = np.concatenate([r_valid, r_valid[::-1]])
-            pr_plot = np.concatenate([pr_pos, pr_neg[::-1]])
-            
+        if len(r_plot) > 0:
+            # Trayectoria de fase
             fig_phase.add_trace(go.Scatter(
-                x=r_plot, y=pr_plot, mode='lines', name='Trayectoria de Fase',
-                line=dict(color='#7c3aed', width=3), fill='toself', fillcolor='rgba(124, 58, 237, 0.1)'
+                x=r_plot, y=pr_plot, 
+                mode='lines', 
+                name='Trayectoria de Fase',
+                line=dict(color='#7c3aed', width=3), 
+                fill='toself', 
+                fillcolor='rgba(124, 58, 237, 0.1)',
+                hovertemplate="r: %{x:.2f}<br>p_r: %{y:.2f}<extra></extra>"
             ))
             
-            # Vector de flujo (flechas)
-            step = max(1, len(r_plot) // 12)
-            for i in range(0, len(r_plot), step):
-                # Añadir pequeñas flechas indicando la dirección del flujo
-                pass # (Omitido para mantener limpieza visual, se entiende por la animación)
+            # Añadir flechas de dirección
+            if len(r_plot) > 10:
+                step = len(r_plot) // 8
+                for i in range(0, len(r_plot) - step, step):
+                    fig_phase.add_annotation(
+                        x=r_plot[i], y=pr_plot[i],
+                        ax=r_plot[i + step//2], ay=pr_plot[i + step//2],
+                        xref="x", yref="y",
+                        axref="x", ayref="y",
+                        showarrow=True,
+                        arrowhead=2,
+                        arrowsize=1,
+                        arrowwidth=2,
+                        arrowcolor="#6366f1"
+                    )
 
         else:
-            fig_phase.add_annotation(text="Región Clásicamente Prohibida", showarrow=False, font=dict(size=20, color="red"))
+            fig_phase.add_annotation(
+                text="⚠️ Región Clásicamente Prohibida<br>No hay solución real para p_r",
+                xref="paper", yref="paper",
+                x=0.5, y=0.5,
+                showarrow=False,
+                font=dict(size=16, color="red")
+            )
 
         fig_phase.update_layout(
-            title="<b>Espacio Fase Radial</b> <br><i>(Momento conjugado vs Coordenada)</i>", 
+            title="<b>Espacio Fase Radial</b>", 
             xaxis_title="r", 
             yaxis_title="p_r",
-            xaxis_range=[0, 8], yaxis_range=[-4, 4], height=400, margin=dict(l=20, r=20, t=60, b=20)
+            xaxis_range=[0, 8], 
+            yaxis_range=[-4, 4], 
+            height=450, 
+            margin=dict(l=20, r=20, t=60, b=20),
+            hovermode='closest'
         )
         st.plotly_chart(fig_phase, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # Animación
     st.markdown("#### 🎥 Dinámica Temporal")
-    if st.button("▶️ Iniciar Evolución Temporal"):
-        if len(r_valid) > 0:
-            prog_bar = st.progress(0)
-            
-            # Interpolación para animación suave
-            steps = 50
-            indices = np.linspace(0, len(r_plot)-1, steps, dtype=int)
-            
-            for i, idx in enumerate(indices):
-                # Actualizar marcador sobre la gráfica base
-                fig_anim = go.Figure(fig_phase)
-                fig_anim.add_trace(go.Scatter(
-                    x=[r_plot[idx]], y=[pr_plot[idx]], mode='markers',
-                    marker=dict(color='#db2777', size=15, line=dict(color='white', width=2)),
-                    name='Estado del Sistema'
-                ))
-                fig_anim.update_layout(height=400, margin=dict(l=20, r=20, t=60, b=20))
+    
+    if len(r_plot) > 0:
+        col_anim1, col_anim2 = st.columns([1, 3])
+        
+        with col_anim1:
+            if st.button("▶️ Iniciar Animación") and not st.session_state.animation_running:
+                st.session_state.animation_running = True
+        
+        with col_anim2:
+            if st.session_state.animation_running:
+                # Crear placeholder para la animación
+                anim_placeholder = st.empty()
+                prog_bar = st.progress(0)
                 
-                # Usar un contenedor vacío para sobreescribir la gráfica en lugar de crear nuevas abajo
-                # Nota: En streamlit simple esto rerenderiza, pero es la forma estándar
-                st.session_state['anim_plot'] = fig_anim
+                # Interpolación para animación suave
+                steps = 100
+                indices = np.linspace(0, len(r_plot)-1, steps, dtype=int)
                 
-                # Truco: mostrar la gráfica animada en un placeholder si quisieramos (aquí simplificado)
-                col_graph2.plotly_chart(fig_anim, use_container_width=True)
+                for i, idx in enumerate(indices):
+                    # Crear figura actualizada
+                    fig_anim = go.Figure()
+                    
+                    # Trayectoria completa
+                    fig_anim.add_trace(go.Scatter(
+                        x=r_plot, y=pr_plot, 
+                        mode='lines', 
+                        name='Trayectoria de Fase',
+                        line=dict(color='#7c3aed', width=3), 
+                        fill='toself', 
+                        fillcolor='rgba(124, 58, 237, 0.1)'
+                    ))
+                    
+                    # Punto actual
+                    fig_anim.add_trace(go.Scatter(
+                        x=[r_plot[idx]], y=[pr_plot[idx]], 
+                        mode='markers+text',
+                        marker=dict(color='#db2777', size=15, line=dict(color='white', width=2)),
+                        text=[f"t={i}"], textposition="top center",
+                        name='Estado Actual'
+                    ))
+                    
+                    fig_anim.update_layout(
+                        title=f"<b>Evolución Temporal - Paso {i+1}/{steps}</b>", 
+                        xaxis_title="r", 
+                        yaxis_title="p_r",
+                        xaxis_range=[0, 8], 
+                        yaxis_range=[-4, 4], 
+                        height=400, 
+                        margin=dict(l=20, r=20, t=60, b=20),
+                        showlegend=True
+                    )
+                    
+                    # Actualizar placeholder
+                    anim_placeholder.plotly_chart(fig_anim, use_container_width=True)
+                    
+                    # Actualizar barra de progreso
+                    prog_bar.progress((i + 1) / steps)
+                    
+                    time.sleep(0.05)  # Control de velocidad
                 
-                time.sleep(0.03)
-                prog_bar.progress((i + 1) / steps)
+                prog_bar.empty()
+                st.success("✅ Animación completada")
+                st.session_state.animation_running = False
+                
+                # Botón para reiniciar
+                if st.button("🔄 Reiniciar Animación"):
+                    st.session_state.animation_running = True
+                    st.rerun()
+    else:
+        st.warning("No se puede animar: no hay región clásicamente permitida con los parámetros actuales.")
+
+    # Información adicional
+    with st.expander("📊 Información Detallada"):
+        col_info1, col_info2 = st.columns(2)
+        
+        with col_info1:
+            st.write("**Parámetros Actuales:**")
+            st.write(f"- Energía: E = {E_val:.3f}")
+            st.write(f"- Momento angular: L = {L_val:.3f}")
+            st.write(f"- Masa: m = {m_val:.3f}")
+            st.write(f"- Constante de potencial: α = {alpha_val:.3f}")
             
-            prog_bar.empty()
-            st.success("Periodo completado.")
+            if turning_points:
+                st.write("**Puntos de Retorno:**")
+                for i, tp in enumerate(turning_points):
+                    st.write(f"- r_{i+1} = {tp:.3f}")
+        
+        with col_info2:
+            st.write("**Análisis de Órbita:**")
+            if E_val < 0 and len(turning_points) >= 2:
+                st.success("Órbita ELÍPTICA (ligada)")
+                st.write(f"- Radio mínimo: {min(turning_points):.3f}")
+                st.write(f"- Radio máximo: {max(turning_points):.3f}")
+            elif E_val > 0:
+                st.info("Órbita HIPERBÓLICA (no ligada)")
+            elif E_val == 0:
+                st.warning("Órbita PARABÓLICA (caso límite)")
+            else:
+                st.error("Configuración no física o sin puntos de retorno")
