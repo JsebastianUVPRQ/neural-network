@@ -101,7 +101,7 @@ st.markdown('<div class="sub-header">El Problema de los Dos Cuerpos y Fuerzas Ce
 tab1, tab2, tab3 = st.tabs(["📖 Teoría Avanzada", "❓ Quiz Conceptual", "📈 Laboratorio Virtual"])
 
 # ==========================================
-# PESTAÑA 1: TEORÍA (ESTILO GOLDSTEIN)
+# PESTAÑA 1: TEORÍA (CORREGIDA Y ROBUSTA)
 # ==========================================
 with tab1:
     st.markdown('<div class="theory-text">', unsafe_allow_html=True)
@@ -112,6 +112,7 @@ with tab1:
     Debido a la simetría esférica del problema, el potencial es invariante bajo rotaciones, lo que implica la conservación del vector momento angular $\\vec{L}$. 
     Esta conservación restringe el movimiento de la partícula a un plano fijo perpendicular a $\\vec{L}$.
     """)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown("**Coordenadas Esféricas:**")
     st.markdown("""
@@ -120,16 +121,22 @@ with tab1:
     Los momentos canónicos conjugados se definen como $p_i = \\partial L / \\partial \\dot{q}_i$:
     """)
 
-    st.markdown('<div class="math-box">', unsafe_allow_html=True)
-    st.latex(r'''p_r = m\dot{r}, \quad p_\theta = mr^2\dot{\theta}, \quad p_\phi = mr^2\sin^2\theta\dot{\phi}''')
-    st.markdown('</div>', unsafe_allow_html=True)
+    # SOLUCIÓN: Usamos st.info (disfrazado por CSS) para la caja, y raw strings puros para el LaTeX
+    st.info(r"""
+    $$
+    p_r = m\dot{r}, \quad p_\theta = mr^2\dot{\theta}, \quad p_\phi = mr^2\sin^2\theta\dot{\phi}
+    $$
+    """)
 
     st.markdown("El Hamiltoniano $H = T + U$ expresado en términos de los momentos resulta en:")
     
-    st.markdown('<div class="math-box">', unsafe_allow_html=True)
-    st.latex(r"H(q, p) = \frac{1}{2m} \left[ p_r^2 + \frac{p_\theta^2}{r^2} + \frac{p_\phi^2}{r^2\sin^2\theta} \right] + U(r)")
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.info(r"""
+    $$
+    H(q, p) = \frac{1}{2m} \left[ p_r^2 + \frac{p_\theta^2}{r^2} + \frac{p_\phi^2}{r^2\sin^2\theta} \right] + U(r)
+    $$
+    """)
 
+    st.markdown('<div class="theory-text">', unsafe_allow_html=True)
     st.markdown("### 2. Coordenadas Cíclicas y Reducción")
     st.markdown("""
     Observamos que la coordenada $\\phi$ es **cíclica** (no aparece explícitamente en $H$), por lo tanto, su momento conjugado $p_\\phi$ es una constante de movimiento:
@@ -138,6 +145,7 @@ with tab1:
     Dada la conservación de la dirección del momento angular, podemos simplificar el problema eligiendo el sistema de coordenadas tal que el movimiento ocurra en el plano ecuatorial. 
     Fijamos $\\theta = \\pi/2$, lo que implica $p_\\theta = 0$. El Hamiltoniano se reduce drásticamente:
     """)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown("### 3. El Problema Unidimensional Equivalente")
     st.markdown("""
@@ -145,19 +153,24 @@ with tab1:
     Esto es formalmente equivalente a un problema de una sola dimensión ficticio:
     """)
 
-    st.markdown('<div class="math-box">', unsafe_allow_html=True)
-    st.latex(r"H_{1D} = \frac{p_r^2}{2m} + \frac{L^2}{2mr^2} + U(r) = E")
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.info(r"""
+    $$
+    H_{1D} = \frac{p_r^2}{2m} + \frac{L^2}{2mr^2} + U(r) = E
+    $$
+    """)
 
     st.markdown("""
     El segundo término, $\\frac{L^2}{2mr^2}$, surge matemáticamente de la energía cinética angular, pero físicamente actúa como un **potencial repulsivo** que impide que la partícula colapse al origen (para $L \\neq 0$). 
     Definimos entonces el **Potencial Efectivo** $V_{eff}(r)$:
     """)
 
-    st.markdown('<div class="math-box">', unsafe_allow_html=True)
-    st.latex(r"V_{eff}(r) \equiv \frac{L^2}{2mr^2} + U(r)")
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.info(r"""
+    $$
+    V_{eff}(r) \equiv \frac{L^2}{2mr^2} - \frac{\alpha}{r}
+    $$
+    """)
 
+    st.markdown('<div class="theory-text">', unsafe_allow_html=True)
     st.markdown("### 4. Análisis Cualitativo de las Órbitas")
     st.markdown("""
     La ecuación de movimiento radial queda determinada por la conservación de la energía: $E = T_r + V_{eff}$. 
@@ -167,7 +180,6 @@ with tab1:
     * **$E < 0$**: La partícula está confinada entre dos radios de retorno $r_{min}$ (perihelio) y $r_{max}$ (afelio). Órbita **elíptica** (ligada).
     * **$E = V_{min}$**: La partícula yace en el fondo del pozo de potencial. $r$ es constante. Órbita **circular**.
     """)
-    
     st.markdown('</div>', unsafe_allow_html=True)
 
 
