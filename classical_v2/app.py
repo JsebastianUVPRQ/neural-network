@@ -314,11 +314,15 @@ with tab4:
     
     with col1:
         st.latex(r"U_{\text{eff}}(r) = ?")
-        opcion_potencial = st.selectbox("Selecciona la expresión correcta:",
-                                       [r"-\frac{\alpha}{r}",
-                                        r"-\frac{\alpha}{r} + \frac{L}{r}",
-                                        r"-\frac{\alpha}{r} + \frac{L^2}{2mr^2}",
-                                        r"-\frac{\alpha}{r} - \frac{L^2}{2mr^2}"])
+        opcion_potencial = st.selectbox(
+            "Selecciona la expresión correcta:",
+            [
+                r"-\frac{\alpha}{r}",
+                r"-\frac{\alpha}{r} + \frac{L}{r}",
+                r"-\frac{\alpha}{r} + \frac{L^2}{2mr^2}",
+                r"-\frac{\alpha}{r} - \frac{L^2}{2mr^2}"
+            ]
+        )
     
     with col2:
         if st.button("Verificar Potencial Efectivo"):
