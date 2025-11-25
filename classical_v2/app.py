@@ -8,60 +8,143 @@ import time
 st.markdown("""
 <style>
 
+/* ================================
+      FUENTE GLOBAL: INTER
+==================================*/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 html, body, [class*="css"]  {
     font-family: 'Inter', sans-serif !important;
+    color: #E8ECF2 !important;
 }
 
+
+/* ================================
+             TITULOS
+==================================*/
 h1, h2, h3, h4 {
     font-family: 'Inter', sans-serif !important;
     font-weight: 600 !important;
+    color: #9BCBFF !important;
 }
 
-p, li, span, label {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 400 !important;
-}
 
-</style>
-""", unsafe_allow_html=True)
-# ---------------BOTONES CSS----------------
-st.markdown("""
-<style>
-
-.stButton>button {
-    color: white;
-    background: #2E86C1;
-    padding: 0.6rem 1.3rem;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-}
-.stButton>button:hover {
-    background: #1B4F72;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# ------------------------------------------
-# --------------TARJETAS CSS----------------
-st.markdown("""
-<style>
-
+/* ================================
+        TARJETAS / CONTENEDORES
+==================================*/
 div.stMarkdown div {
-    padding: 1rem 1.2rem;
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    border: 1px solid #E1E8F0;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1.2rem;
+    background-color: #161925 !important;
+    border: 1px solid #1F2330 !important;
+    border-radius: 12px !important;
+    padding: 1.1rem 1.3rem !important;
+    box-shadow: 0 0 8px rgba(0,0,0,0.25) !important;
+    margin-bottom: 1.2rem !important;
+}
+
+
+/* ================================
+            SIDEBAR
+==================================*/
+section[data-testid="stSidebar"] {
+    background-color: #11131C !important;
+    border-right: 1px solid #1A1C25 !important;
+}
+
+section[data-testid="stSidebar"] * {
+    font-family: 'Inter', sans-serif !important;
+}
+
+
+/* ================================
+            BOTONES
+==================================*/
+.stButton>button {
+    background-color: #6EB5FF !important;
+    color: #0F111A !important;
+    padding: 0.6rem 1.2rem !important;
+    font-weight: 600 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+}
+
+.stButton>button:hover {
+    background-color: #98CCFF !important;
+}
+
+
+/* ================================
+              INPUTS
+==================================*/
+.stTextInput>div>div>input,
+.stNumberInput input,
+.stDateInput input {
+    background-color: #1A1D29 !important;
+    color: #E8ECF2 !important;
+    border: 1px solid #2C3142 !important;
+    border-radius: 8px !important;
+}
+
+.stSelectbox div[data-baseweb="select"] {
+    background-color: #1A1D29 !important;
+    color: #E8ECF2 !important;
+    border-radius: 8px !important;
+    border: 1px solid #2C3142 !important;
+}
+
+
+/* ================================
+        SLIDERS / RANGE INPUTS
+==================================*/
+[data-baseweb="slider"] {
+    color: #E8ECF2 !important;
+}
+
+.stSlider > div > div > div {
+    background-color: #6EB5FF !important;
+}
+
+.stSlider > div > div > div[role="slider"] {
+    background-color: #98CCFF !important;
+    border-radius: 50% !important;
+}
+
+
+/* ================================
+                LATEX
+==================================*/
+.katex-html {
+    font-size: 20px !important;
+    color: #E8ECF2 !important;
+}
+
+
+/* ================================
+           TABLAS / DATAFRAMES
+==================================*/
+.dataframe thead th {
+    background-color: #1F2330 !important;
+    color: #E8ECF2 !important;
+}
+
+.dataframe tbody td {
+    background-color: #161925 !important;
+    color: #D6DBE4 !important;
+}
+
+
+/* ================================
+            EXPANDERS
+==================================*/
+.streamlit-expanderHeader {
+    background-color: #161925 !important;
+    color: #E8ECF2 !important;
+    border-radius: 8px !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
-# ------------------------------------------
+
 
 
 # Configuración de la página
