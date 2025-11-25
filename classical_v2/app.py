@@ -7,117 +7,31 @@ import time
 
 
 
-st.markdown("""<style>
-/* === Neon Dark Dashboard — Purple Academic Theme for Streamlit === */
+st.markdown("""
+<style>
+    /* Estilo para las tarjetas de opción */
+    .stButton button {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        color: #333;
+        height: 100%;
+        width: 100%;
+    }
+    
+    /* Efecto al pasar el mouse por encima */
+    .stButton button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        border-color: #00ADB5;
+        color: #00ADB5;
+    }
 
-/* GLOBAL BACKGROUND */
-html, body, [data-testid="stAppViewContainer"] {
-    background-color: #0d0a13;
-    color: #e6e6e6;
-    font-family: "Inter", "Segoe UI", sans-serif;
-}
-
-/* SIDEBAR */
-[data-testid="stSidebar"] {
-    background-color: #120e1a;
-    border-right: 1px solid rgba(180, 80, 255, 0.18);
-}
-
-[data-testid="stSidebar"] * {
-    color: #e0d4ff !important;
-}
-
-/* HEADERS */
-h1, h2, h3, h4 {
-    color: #c467ff !important;
-    text-shadow: 0px 0px 6px rgba(196, 103, 255, 0.55);
-}
-
-/* PARAGRAPH TEXT */
-p, label, span, div {
-    font-size: 16px;
-}
-
-/* WIDGET LABELS */
-label, .stRadio > label, .stSelectbox > label {
-    color: #d5b3ff !important;
-    text-shadow: 0px 0px 3px rgba(200, 130, 255, 0.35);
-}
-
-/* PRIMARY BUTTONS */
-button[kind="primary"] {
-    background-color: #1a1422 !important;
-    color: #e6d7ff !important;
-    border: 1px solid rgba(200, 100, 255, 0.6) !important;
-    border-radius: 8px;
-    box-shadow: 0px 0px 12px rgba(200, 100, 255, 0.35);
-}
-
-button[kind="primary"]:hover {
-    background-color: #c467ff !important;
-    color: #0d0a13 !important;
-    border-color: #d48aff !important;
-    box-shadow: 0px 0px 20px rgba(210, 120, 255, 0.9);
-}
-
-/* SECONDARY BUTTONS */
-button[kind="secondary"] {
-    background-color: #18131f !important;
-    color: #e0d4ff !important;
-    border-radius: 8px;
-}
-
-/* SLIDERS */
-.stSlider > div > div > div > div {
-    background-color: #c467ff !important;
-    box-shadow: 0px 0px 7px rgba(200, 100, 255, 0.55);
-}
-
-.stSlider > div > div > div {
-    background-color: rgba(200, 100, 255, 0.25);
-}
-
-/* SELECTBOXES & INPUTS */
-div[data-baseweb="select"], input {
-    background-color: #1a1422 !important;
-    color: #f2e9ff !important;
-    border: 1px solid rgba(200, 100, 255, 0.35) !important;
-    border-radius: 6px !important;
-}
-
-/* GRAPH CARDS */
-.stPlotlyChart, .stAltairChart, .stImage {
-    border: 1px solid rgba(200, 100, 255, 0.25);
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(200, 100, 255, 0.25);
-}
-
-/* EXPANDERS */
-.streamlit-expanderHeader {
-    color: #d48aff !important;
-    font-weight: 600;
-}
-
-.streamlit-expanderContent {
-    background-color: #16101e !important;
-}
-
-/* TABLES */
-[data-testid="stDataFrame"] {
-    border: 1px solid rgba(200, 100, 255, 0.25);
-    border-radius: 8px;
-}
-
-/* CODE BLOCKS */
-code, pre {
-    background-color: #1b1128 !important;
-    color: #e6d7ff !important;
-    border-radius: 6px;
-    border: 1px solid rgba(195, 125, 255, 0.25);
-}
-
-/* FOOTER — hide */
-footer { visibility: hidden; }
+    /* Ocultar menú superior y footer si quieres un look más 'app' */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
