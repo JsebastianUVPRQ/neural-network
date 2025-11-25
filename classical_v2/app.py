@@ -8,29 +8,29 @@ import time
 
 
 st.markdown("""<style>
-/* === Neon Dark Dashboard Theme for Streamlit === */
+/* === Neon Dark Dashboard — Purple Academic Theme for Streamlit === */
 
 /* GLOBAL BACKGROUND */
 html, body, [data-testid="stAppViewContainer"] {
-    background-color: #0d0f16;
+    background-color: #0d0a13;
     color: #e6e6e6;
     font-family: "Inter", "Segoe UI", sans-serif;
 }
 
 /* SIDEBAR */
 [data-testid="stSidebar"] {
-    background-color: #11131b;
-    border-right: 1px solid rgba(0, 255, 255, 0.15);
+    background-color: #120e1a;
+    border-right: 1px solid rgba(180, 80, 255, 0.18);
 }
 
 [data-testid="stSidebar"] * {
-    color: #d9d9d9!important;
+    color: #e0d4ff !important;
 }
 
 /* HEADERS */
 h1, h2, h3, h4 {
-    color: #00e6e6 !important;
-    text-shadow: 0px 0px 6px rgba(0,255,255,0.55);
+    color: #c467ff !important;
+    text-shadow: 0px 0px 6px rgba(196, 103, 255, 0.55);
 }
 
 /* PARAGRAPH TEXT */
@@ -40,78 +40,84 @@ p, label, span, div {
 
 /* WIDGET LABELS */
 label, .stRadio > label, .stSelectbox > label {
-    color: #a9c9ff !important;
-    text-shadow: 0px 0px 3px rgba(0,150,255,0.35);
+    color: #d5b3ff !important;
+    text-shadow: 0px 0px 3px rgba(200, 130, 255, 0.35);
 }
 
-/* BUTTONS */
+/* PRIMARY BUTTONS */
 button[kind="primary"] {
-    background-color: #10121a !important;
-    color: #00ffff !important;
-    border: 1px solid rgba(0,255,255,0.5) !important;
+    background-color: #1a1422 !important;
+    color: #e6d7ff !important;
+    border: 1px solid rgba(200, 100, 255, 0.6) !important;
     border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0,255,255,0.25);
+    box-shadow: 0px 0px 12px rgba(200, 100, 255, 0.35);
 }
 
 button[kind="primary"]:hover {
-    background-color: #00e6e6 !important;
-    color: #0d0f16 !important;
-    border-color: #00ffff !important;
-    box-shadow: 0px 0px 18px rgba(0,255,255,0.75);
+    background-color: #c467ff !important;
+    color: #0d0a13 !important;
+    border-color: #d48aff !important;
+    box-shadow: 0px 0px 20px rgba(210, 120, 255, 0.9);
 }
 
 /* SECONDARY BUTTONS */
 button[kind="secondary"] {
-    background-color: #181b26 !important;
-    color: #c8c8c8 !important;
+    background-color: #18131f !important;
+    color: #e0d4ff !important;
     border-radius: 8px;
 }
 
 /* SLIDERS */
 .stSlider > div > div > div > div {
-    background-color: #00e6e6 !important;
-    box-shadow: 0px 0px 6px rgba(0,255,255,0.5);
+    background-color: #c467ff !important;
+    box-shadow: 0px 0px 7px rgba(200, 100, 255, 0.55);
 }
 
 .stSlider > div > div > div {
-    background-color: rgba(0,255,255,0.25);
+    background-color: rgba(200, 100, 255, 0.25);
 }
 
 /* SELECTBOXES & INPUTS */
 div[data-baseweb="select"], input {
-    background-color: #1a1d27 !important;
-    color: #e6e6e6 !important;
-    border: 1px solid rgba(0,255,255,0.3) !important;
+    background-color: #1a1422 !important;
+    color: #f2e9ff !important;
+    border: 1px solid rgba(200, 100, 255, 0.35) !important;
     border-radius: 6px !important;
 }
 
-/* GRAPH BORDER */
+/* GRAPH CARDS */
 .stPlotlyChart, .stAltairChart, .stImage {
-    border: 1px solid rgba(0,255,255,0.25);
+    border: 1px solid rgba(200, 100, 255, 0.25);
     border-radius: 10px;
-    box-shadow: 0px 0px 14px rgba(0,255,255,0.25);
+    box-shadow: 0px 0px 15px rgba(200, 100, 255, 0.25);
 }
 
 /* EXPANDERS */
 .streamlit-expanderHeader {
-    color: #00e6e6 !important;
+    color: #d48aff !important;
     font-weight: 600;
 }
 
 .streamlit-expanderContent {
-    background-color: #14171f !important;
+    background-color: #16101e !important;
 }
 
 /* TABLES */
 [data-testid="stDataFrame"] {
-    border: 1px solid rgba(0,255,255,0.25);
+    border: 1px solid rgba(200, 100, 255, 0.25);
     border-radius: 8px;
 }
 
-/* FOOTER -- OCULTAR ---- */
-footer {
-    visibility: hidden;
+/* CODE BLOCKS */
+code, pre {
+    background-color: #1b1128 !important;
+    color: #e6d7ff !important;
+    border-radius: 6px;
+    border: 1px solid rgba(195, 125, 255, 0.25);
 }
+
+/* FOOTER — hide */
+footer { visibility: hidden; }
 </style>
 """, unsafe_allow_html=True)
 
