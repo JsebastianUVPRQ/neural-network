@@ -8,74 +8,36 @@ import time
 
 
 st.markdown("""
-<style>
-
-/* ================================
-      FUENTE GLOBAL: INTER
-==================================*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-html, body, [class*="css"]  {
-    font-family: 'Inter', sans-serif !important;
-    color: #E8ECF2 !important;
+<style> 
+/* Estilos ANIGABLES PARA STREAMLIT */
+.section-header {
+    font-size: 2.5em;
+    color: #6EB5FF;
+    text-align: center;
+    margin-bottom: 20px;
 }
-
-
-/* ================================
-             TITULOS
-==================================*/
-h1, h2, h3, h4 {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 600 !important;
-    color: #9BCBFF !important;
+.exercise-box {
+    border: 2px solid #6EB5FF;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #1E1E2F;
 }
+.option-box {
+    border: 1px solid #6EB5FF;
+    border-radius: 5px;
 
-
-/* ================================
-        TARJETAS / CONTENEDORES
-==================================*/
-div.stMarkdown div {
-    background-color: #161925 !important;
-    border: 1px solid #1F2330 !important;
-    border-radius: 12px !important;
-    padding: 1.1rem 1.3rem !important;
-    box-shadow: 0 0 8px rgba(0,0,0,0.25) !important;
-    margin-bottom: 1.2rem !important;
+    padding: 10px;
+    margin: 5px;
+    background-color: #2A2A3D;
 }
-
-
-/* ================================
-            SIDEBAR
-==================================*/
-section[data-testid="stSidebar"] {
-    background-color: #11131C !important;
-    border-right: 1px solid #1A1C25 !important;
+.success-box {
+    border: 2px solid #28A745;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #1E3D1E;
 }
-
-section[data-testid="stSidebar"] * {
-    font-family: 'Inter', sans-serif !important;
-}
-
-
-/* ================================
-            BOTONES
-==================================*/
-.stButton>button {
-    background-color: #6EB5FF !important;
-    color: #0F111A !important;
-    padding: 0.6rem 1.2rem !important;
-    font-weight: 600 !important;
-    border: none !important;
-    border-radius: 8px !important;
-    font-size: 16px !important;
-}
-
-.stButton>button:hover {
-    background-color: #98CCFF !important;
-}
-
-
-
 </style>
 """, unsafe_allow_html=True)
 
