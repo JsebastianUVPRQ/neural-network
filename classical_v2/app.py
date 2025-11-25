@@ -5,12 +5,8 @@ from matplotlib.patches import Circle
 from scipy.integrate import solve_ivp
 import time
 
-# Configuración de la página
-st.set_page_config(
-    page_title="Mecánica Clásica",
-    page_icon="🔭",
-    layout="centered",   
-)
+
+
 st.markdown("""
 <style>
 
@@ -79,77 +75,16 @@ section[data-testid="stSidebar"] * {
 }
 
 
-/* ================================
-              INPUTS
-==================================*/
-.stTextInput>div>div>input,
-.stNumberInput input,
-.stDateInput input {
-    background-color: #1A1D29 !important;
-    color: #E8ECF2 !important;
-    border: 1px solid #2C3142 !important;
-    border-radius: 8px !important;
-}
-
-.stSelectbox div[data-baseweb="select"] {
-    background-color: #1A1D29 !important;
-    color: #E8ECF2 !important;
-    border-radius: 8px !important;
-    border: 1px solid #2C3142 !important;
-}
-
-
-/* ================================
-        SLIDERS / RANGE INPUTS
-==================================*/
-[data-baseweb="slider"] {
-    color: #E8ECF2 !important;
-}
-
-.stSlider > div > div > div {
-    background-color: #6EB5FF !important;
-}
-
-.stSlider > div > div > div[role="slider"] {
-    background-color: #98CCFF !important;
-    border-radius: 50% !important;
-}
-
-
-/* ================================
-                LATEX
-==================================*/
-.katex-html {
-    font-size: 20px !important;
-    color: #E8ECF2 !important;
-}
-
-
-/* ================================
-           TABLAS / DATAFRAMES
-==================================*/
-.dataframe thead th {
-    background-color: #1F2330 !important;
-    color: #E8ECF2 !important;
-}
-
-.dataframe tbody td {
-    background-color: #161925 !important;
-    color: #D6DBE4 !important;
-}
-
-
-/* ================================
-            EXPANDERS
-==================================*/
-.streamlit-expanderHeader {
-    background-color: #161925 !important;
-    color: #E8ECF2 !important;
-    border-radius: 8px !important;
-}
 
 </style>
 """, unsafe_allow_html=True)
+
+# Configuración de la página
+st.set_page_config(
+
+    layout="centered",   
+)
+st.title("🔭 Mecánica Clásica")
 
 # Crear pestañas
 tab1, tab2, tab3, tab4 = st.tabs([
