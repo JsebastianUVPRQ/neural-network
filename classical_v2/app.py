@@ -7,7 +7,7 @@ import time
 
 
 
-st.markdown("""
+st.markdown("""<style>
 /* === Neon Dark Dashboard Theme for Streamlit === */
 
 /* GLOBAL BACKGROUND */
@@ -112,7 +112,7 @@ div[data-baseweb="select"], input {
 footer {
     visibility: hidden;
 }
-
+</style>
 """, unsafe_allow_html=True)
 
 
