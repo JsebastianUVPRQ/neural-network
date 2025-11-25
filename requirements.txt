@@ -1,6 +1,0 @@
-pandas
-streamlit
-numpy
-matplotlib
-scipy
-time
