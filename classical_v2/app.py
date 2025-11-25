@@ -149,12 +149,11 @@ section[data-testid="stSidebar"] * {
 
 # Configuración de la página
 st.set_page_config(
-    page_title="Mecánica Clásica",
+    page_title="Mecánica Clásica Avanzada",
     page_icon="🔭",
     layout="centered",
     
 )
-
 
 # Crear pestañas
 tab1, tab2, tab3, tab4 = st.tabs([
