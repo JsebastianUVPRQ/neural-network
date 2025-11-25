@@ -1,6 +1,19 @@
 [theme]
+# Fondo: Un azul grisáceo muy profundo ("Gunmetal").
+# Es mejor que el negro puro porque reduce el contraste extremo con el texto blanco.
+backgroundColor = "#1E1E2E"
+
+# Color Primario: Turquesa Neón.
+# Se usa para los botones activos, sliders y bordes de selección.
+# Evoca: Ciencia, Energía, Electricidad.
 primaryColor = "#00ADB5"
-backgroundColor = "#222831"
-secondaryBackgroundColor = "#393E46"
-textColor = "#EEEEEE"
+
+# Fondo Secundario: Para la barra lateral y widgets inactivos.
+secondaryBackgroundColor = "#252535"
+
+# Texto: Blanco humo.
+# No es #FFFFFF puro para evitar deslumbrar.
+textColor = "#F4F4F8"
+
+# Tipografía: Sans serif para máxima legibilidad en pantallas.
 font = "sans serif"
