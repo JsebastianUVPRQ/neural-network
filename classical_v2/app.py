@@ -1,10 +1,3 @@
-import streamlit as st
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import Circle
-import sympy as sp
-from scipy.integrate import solve_ivp
-import time
 
 # Configuración de la página
 st.set_page_config(
