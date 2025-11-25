@@ -6,6 +6,116 @@ from scipy.integrate import solve_ivp
 import time
 
 
+
+st.markdown("""
+/* === Neon Dark Dashboard Theme for Streamlit === */
+
+/* GLOBAL BACKGROUND */
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #0d0f16;
+    color: #e6e6e6;
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* SIDEBAR */
+[data-testid="stSidebar"] {
+    background-color: #11131b;
+    border-right: 1px solid rgba(0, 255, 255, 0.15);
+}
+
+[data-testid="stSidebar"] * {
+    color: #d9d9d9!important;
+}
+
+/* HEADERS */
+h1, h2, h3, h4 {
+    color: #00e6e6 !important;
+    text-shadow: 0px 0px 6px rgba(0,255,255,0.55);
+}
+
+/* PARAGRAPH TEXT */
+p, label, span, div {
+    font-size: 16px;
+}
+
+/* WIDGET LABELS */
+label, .stRadio > label, .stSelectbox > label {
+    color: #a9c9ff !important;
+    text-shadow: 0px 0px 3px rgba(0,150,255,0.35);
+}
+
+/* BUTTONS */
+button[kind="primary"] {
+    background-color: #10121a !important;
+    color: #00ffff !important;
+    border: 1px solid rgba(0,255,255,0.5) !important;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,255,255,0.25);
+}
+
+button[kind="primary"]:hover {
+    background-color: #00e6e6 !important;
+    color: #0d0f16 !important;
+    border-color: #00ffff !important;
+    box-shadow: 0px 0px 18px rgba(0,255,255,0.75);
+}
+
+/* SECONDARY BUTTONS */
+button[kind="secondary"] {
+    background-color: #181b26 !important;
+    color: #c8c8c8 !important;
+    border-radius: 8px;
+}
+
+/* SLIDERS */
+.stSlider > div > div > div > div {
+    background-color: #00e6e6 !important;
+    box-shadow: 0px 0px 6px rgba(0,255,255,0.5);
+}
+
+.stSlider > div > div > div {
+    background-color: rgba(0,255,255,0.25);
+}
+
+/* SELECTBOXES & INPUTS */
+div[data-baseweb="select"], input {
+    background-color: #1a1d27 !important;
+    color: #e6e6e6 !important;
+    border: 1px solid rgba(0,255,255,0.3) !important;
+    border-radius: 6px !important;
+}
+
+/* GRAPH BORDER */
+.stPlotlyChart, .stAltairChart, .stImage {
+    border: 1px solid rgba(0,255,255,0.25);
+    border-radius: 10px;
+    box-shadow: 0px 0px 14px rgba(0,255,255,0.25);
+}
+
+/* EXPANDERS */
+.streamlit-expanderHeader {
+    color: #00e6e6 !important;
+    font-weight: 600;
+}
+
+.streamlit-expanderContent {
+    background-color: #14171f !important;
+}
+
+/* TABLES */
+[data-testid="stDataFrame"] {
+    border: 1px solid rgba(0,255,255,0.25);
+    border-radius: 8px;
+}
+
+/* FOOTER -- OCULTAR ---- */
+footer {
+    visibility: hidden;
+}
+
+""", unsafe_allow_html=True)
+
+
 st.title("🔭 Mecánica Clásica")
 
 # Crear pestañas
