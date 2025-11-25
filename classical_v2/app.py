@@ -6,42 +6,6 @@ from scipy.integrate import solve_ivp
 import time
 
 
-
-st.markdown("""
-<style> 
-/* Estilos ANIGABLES PARA STREAMLIT */
-.section-header {
-    font-size: 2.5em;
-    color: #6EB5FF;
-    text-align: center;
-    margin-bottom: 20px;
-}
-.exercise-box {
-    border: 2px solid #6EB5FF;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: #1E1E2F;
-}
-.option-box {
-    border: 1px solid #6EB5FF;
-    border-radius: 5px;
-
-    padding: 10px;
-    margin: 5px;
-    background-color: #2A2A3D;
-}
-.success-box {
-    border: 2px solid #28A745;
-    border-radius: 10px;
-    padding: 15px;
-    margin-top: 20px;
-    background-color: #1E3D1E;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
 st.title("🔭 Mecánica Clásica")
 
 # Crear pestañas
