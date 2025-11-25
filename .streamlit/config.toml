@@ -1,0 +1,7 @@
+[theme]
+base="light"
+primaryColor="#2E86C1"                # Azul profesional
+backgroundColor="#F7F9FC"             # Blanco suave
+secondaryBackgroundColor="#FFFFFF"    # Tarjetas blancas
+textColor="#2C3E50"                   # Gris oscuro elegante
+font="serif"                          # Tono académico (Próximo paso mejorará fuente)

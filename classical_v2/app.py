@@ -5,6 +5,25 @@ from matplotlib.patches import Circle
 from scipy.integrate import solve_ivp
 import time
 
+st.markdown("""
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@300;400;600&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Lora', serif;
+    line-height: 1.5;
+}
+
+h1, h2, h3 {
+    font-family: 'Lora', serif !important;
+    font-weight: 600 !important;
+    color: #1A5276;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 # Configuración de la página
 st.set_page_config(
     page_title="Mecánica Clásica Avanzada",
