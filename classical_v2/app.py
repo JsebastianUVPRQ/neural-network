@@ -6,35 +6,40 @@ from scipy.integrate import solve_ivp
 import time
 
 
-
+# 1. Inyección de CSS para "Tarjetas de Vidrio" (Glassmorphism)
+# Esto hace que el diseño se vea educativo y profesional.
 st.markdown("""
 <style>
-    /* Estilo para las tarjetas de opción */
-    .stButton button {
-        background-color: #ffffff;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    /* Estilo base para las tarjetas de opción */
+    div.stButton > button {
+        background-color: rgba(255, 255, 255, 0.05); /* Vidrio oscuro transparente */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        color: #F4F4F8;
         transition: all 0.3s ease;
-        color: #333;
+        padding: 20px 10px; /* Más espacio vertical */
         height: 100%;
-        width: 100%;
+    }
+
+    /* Efecto HOVER (cuando pasas el mouse) */
+    div.stButton > button:hover {
+        background-color: rgba(0, 173, 181, 0.15); /* Tinte del color primario */
+        border-color: #00ADB5; /* Borde brillante */
+        transform: scale(1.02); /* Pequeño zoom */
+        box-shadow: 0 0 15px rgba(0, 173, 181, 0.3); /* Resplandor */
+    }
+
+    /* Títulos de las secciones más grandes */
+    h4 {
+        color: #00ADB5; /* Colorear los subtítulos */
+        border-bottom: 2px solid #393E46;
+        padding-bottom: 10px;
     }
     
-    /* Efecto al pasar el mouse por encima */
-    .stButton button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-        border-color: #00ADB5;
-        color: #00ADB5;
-    }
-
-    /* Ocultar menú superior y footer si quieres un look más 'app' */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
+    /* Ajuste para que el LaTeX se vea grande y claro */
+    .katex { font-size: 1.2em !important; }
 </style>
 """, unsafe_allow_html=True)
-
 
 st.title("🔭 Mecánica Clásica")
 
