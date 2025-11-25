@@ -5,11 +5,12 @@ from matplotlib.patches import Circle
 from scipy.integrate import solve_ivp
 import time
 
-
-# Título principal
-st.title("🔭 Mecánica Clásica")
-st.markdown("---")
-
+# Configuración de la página
+st.set_page_config(
+    page_title="Mecánica Clásica",
+    page_icon="🔭",
+    layout="centered",   
+)
 st.markdown("""
 <style>
 
@@ -149,9 +150,6 @@ section[data-testid="stSidebar"] * {
 
 </style>
 """, unsafe_allow_html=True)
-
-
-
 
 # Crear pestañas
 tab1, tab2, tab3, tab4 = st.tabs([
