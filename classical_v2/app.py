@@ -79,11 +79,7 @@ section[data-testid="stSidebar"] * {
 </style>
 """, unsafe_allow_html=True)
 
-# Configuración de la página
-st.set_page_config(
 
-    layout="centered",   
-)
 st.title("🔭 Mecánica Clásica")
 
 # Crear pestañas
