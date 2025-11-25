@@ -8,21 +8,61 @@ import time
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-html, body, [class*="css"] {
-    font-family: 'Lora', serif;
-    line-height: 1.5;
+html, body, [class*="css"]  {
+    font-family: 'Inter', sans-serif !important;
 }
 
-h1, h2, h3 {
-    font-family: 'Lora', serif !important;
+h1, h2, h3, h4 {
+    font-family: 'Inter', sans-serif !important;
     font-weight: 600 !important;
-    color: #1A5276;
+}
+
+p, li, span, label {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 400 !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
+# ---------------BOTONES CSS----------------
+st.markdown("""
+<style>
+
+.stButton>button {
+    color: white;
+    background: #2E86C1;
+    padding: 0.6rem 1.3rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+.stButton>button:hover {
+    background: #1B4F72;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ------------------------------------------
+# --------------TARJETAS CSS----------------
+st.markdown("""
+<style>
+
+div.stMarkdown div {
+    padding: 1rem 1.2rem;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid #E1E8F0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.2rem;
+}
+
+</style>
+""", unsafe_allow_html=True)
+# ------------------------------------------
+
 
 # Configuración de la página
 st.set_page_config(
